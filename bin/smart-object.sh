@@ -7,7 +7,7 @@ if [[ $# -lt 1 ]]; then
 fi
 
 destinationGraphicWidth=${destinationGraphicWidth:=1920}
-destinationGraphicHeight=${destinationGraphicWidth:=1080}
+destinationGraphicHeight=${destinationGraphicHeight:=1080}
 
 sourceGraphicWidth=`identify $1 | cut -f 3 -d " " | sed s/x.*//`
 sourceGraphicHeight=`identify $1 | cut -f 3 -d " " | sed s/.*x//`
@@ -17,14 +17,14 @@ topRightSrcPoint="${sourceGraphicWidth},0"
 bottomLeftSrcPoint="0,${sourceGraphicHeight}"
 bottomRightSrcPoint="${sourceGraphicWidth},${sourceGraphicHeight}"
 
-topLeftDestPoint=${topLeftDestPoint:="100,100"}
-topRightDestPoint=${topRightDestPoint:="800,10"}
-bottomLeftDestPoint=${bottomLeftDestPoint:="100,800"}
-bottomRightDestPoint=${bottomRightDestPoint:="800,790"}
+topLeftDestPoint=${topLeftDestPoint:=$topLeftSrcPoint}
+topRightDestPoint=${topRightDestPoint:=$topRightSrcPoint}
+bottomLeftDestPoint=${bottomLeftDestPoint:=$bottomLeftSrcPoint}
+bottomRightDestPoint=${bottomRightDestPoint:=$bottomRightSrcPoint}
 
 OUTFILE=${2:="out.png"}
 
-convert -extent 1920x1080 \
+convert -extent "${destinationGraphicWidth}x${destinationGraphicHeight}" \
 -channel rgba \
 -virtual-pixel background \
 -background none \
